@@ -1,0 +1,26 @@
+{
+  "configs": [
+    "devopsdemo.xml"
+  ],
+  "secureProperties": [],
+  "supportedJavaVersions": [],
+  "redeploymentEnabled": true,
+  "name": "com.mycompany:devopsdemo:1.0.0-SNAPSHOT",
+  "minMuleVersion": "4.7.0",
+  "requiredProduct": "MULE_EE",
+  "classLoaderModelLoaderDescriptor": {
+    "id": "mule",
+    "attributes": {
+      "exportedPackages": [],
+      "exportedResources": [
+        "devopsdemo.xml",
+        "log4j2.xml",
+        "properties/dev.yaml"
+      ]
+    }
+  },
+  "bundleDescriptorLoader": {
+    "id": "mule",
+    "attributes": {}
+  }
+}

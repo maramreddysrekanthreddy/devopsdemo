@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="4bc6a26f-3478-4de9-8123-a9359c62cddd" >
+		<http:listener-connection host="0.0.0.0" port="${http.port}" />
+	</http:listener-config>
+	<configuration-properties doc:name="Configuration properties" doc:id="01c78260-88a7-401b-a3eb-ce7dac0d07fb" file="properties/${mule.env}.yaml" />
+	<global-property doc:name="Global Property" doc:id="3336201c-6c9d-4e4e-aad3-078d664b6f4c" name="mule.env" value="dev" />
+	<flow name="devopsdemoFlow" doc:id="c176b641-a836-4a37-a5fc-a83ca28e0713" >
+		<http:listener doc:name="Listener" doc:id="f97f15d4-586e-495f-b329-6413307207c5" config-ref="HTTP_Listener_config" path="test"/>
+		<ee:transform doc:name="Transform Message" doc:id="c661fd84-e80c-430e-878e-2c7e2eec5f9a" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"message": p('log.message')
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="79bfe136-12a0-4929-a3a4-21843a61b53a" message="#[payload]"/>
+	</flow>
+</mule>
